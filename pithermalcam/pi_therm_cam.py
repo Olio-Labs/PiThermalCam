@@ -92,11 +92,11 @@ class pithermalcam:
             self._current_frame_processed=False  # Note that the newly updated raw frame has not been processed
         except ValueError:
             print("Math error; continuing...")
-            self._raw_image = np.zeros((24*32,))  # If something went wrong, make sure the raw image has numbers
+            self._raw_image = np.zeros((24,32))  # If something went wrong, make sure the raw image has numbers
             logger.info(traceback.format_exc())
         except OSError:
             print("IO Error; continuing...")
-            self._raw_image = np.zeros((24*32,))  # If something went wrong, make sure the raw image has numbers
+            self._raw_image = np.zeros((24,32))  # If something went wrong, make sure the raw image has numbers
             logger.info(traceback.format_exc())
 
     def _process_raw_image(self):
