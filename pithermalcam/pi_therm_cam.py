@@ -84,20 +84,20 @@ class pithermalcam:
         """Get one pull of the raw image data, converting temp units if necessary"""
         # Get image
         self._raw_image = np.zeros((24*32,))
-        try:
-            self.mlx.getFrame(self._raw_image)  # read mlx90640
-            self._temp_min = np.min(self._raw_image)
-            self._temp_max = np.max(self._raw_image)
-            self._raw_image=self._temps_to_rescaled_uints(self._raw_image,self._temp_min,self._temp_max)
-            self._current_frame_processed=False  # Note that the newly updated raw frame has not been processed
-        except ValueError:
-            print("Math error; continuing...")
-            self._raw_image = np.zeros((24,32))  # If something went wrong, make sure the raw image has numbers
-            logger.info(traceback.format_exc())
-        except OSError:
-            print("IO Error; continuing...")
-            self._raw_image = np.zeros((24,32))  # If something went wrong, make sure the raw image has numbers
-            logger.info(traceback.format_exc())
+        # ~ try:
+        self.mlx.getFrame(self._raw_image)  # read mlx90640
+        self._temp_min = np.min(self._raw_image)
+        self._temp_max = np.max(self._raw_image)
+        self._raw_image=self._temps_to_rescaled_uints(self._raw_image,self._temp_min,self._temp_max)
+        self._current_frame_processed=False  # Note that the newly updated raw frame has not been processed
+        # ~ except ValueError:
+            # ~ print("Math error; continuing...")
+            # ~ self._raw_image = np.zeros((24,32))  # If something went wrong, make sure the raw image has numbers
+            # ~ logger.info(traceback.format_exc())
+        # ~ except OSError:
+            # ~ print("IO Error; continuing...")
+            # ~ self._raw_image = np.zeros((24,32))  # If something went wrong, make sure the raw image has numbers
+            # ~ logger.info(traceback.format_exc())
 
     def _process_raw_image(self):
         """Process the raw temp data to a colored image. Filter if necessary"""
